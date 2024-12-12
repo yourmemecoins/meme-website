@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$MEME - Revolutionizing Social Media</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/solana-web3.js/1.50.0/solana-web3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #ff9900;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        nav a:hover {
+            background-color: #ff9900;
+            border-radius: 5px;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #eaeaea;
+        }
+        .hero h1 {
+            color: #333;
+        }
+        .features, .roadmap, .staking, .meme-coin {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .features h2, .roadmap h2, .staking h2, .meme-coin h2 {
+            color: #ff9900;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .connect-wallet {
+            margin: 20px auto;
+            text-align: center;
+        }
+        .wallet-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to $MEME</h1>
+        <p>The future of social media, crypto, and e-commerce</p>
+    </header>
+
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#staking">Staking</a>
+        <a href="#meme-coin">Create a Meme Coin</a>
+        <a href="#tokenomics">Tokenomics</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Revolutionizing Social Media with Blockchain</h1>
+        <p>Join the $MEME ecosystem and experience a seamless blend of community, creativity, and commerce.</p>
+    </section>
+
+    <section class="connect-wallet">
+        <h2>Connect Your Wallet</h2>
+        <button id="connect-phantom-wallet">Connect Phantom Wallet</button>
+        <button id="connect-solflare-wallet">Connect Solflare Wallet</button>
+        <button id="connect-sollet-wallet">Connect Sollet Wallet</button>
+        <div class="wallet-info" id="wallet-info"></div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Key Features</h2>
+        <ul>
+            <li>Social Media Redefined: Post pictures, videos, and threaded chains.</li>
+            <li>Private Communication: Secure chats for communities.</li>
+            <li>E-Commerce: Create shops, sell merch, and accept crypto or fiat.</li>
+            <li>Meme Coin Creation: Launch tokens straight from your phone.</li>
+            <li>NFT Marketplace: Mint, buy, and sell digital assets.</li>
+            <li>Future-Proof Wallet: Cross-chain compatibility and secure storage.</li>
+        </ul>
+    </section>
+
+    <section id="roadmap" class="roadmap">
+        <h2>Roadmap</h2>
+        <ol>
+            <li><strong>Phase 1:</strong> $MEME Launch and Staking Rewards.</li>
+            <li><strong>Phase 2:</strong> Core Features Implementation: Social media, meme coin tools, and NFT marketplace.</li>
+            <li><strong>Phase 3:</strong> E-Commerce Integration: Developer shops and merchandise sales.</li>
+            <li><strong>Phase 4:</strong> Wallet Release: Cross-chain compatibility and advanced features.</li>
+            <li><strong>Phase 5:</strong> Cross-Chain Expansion: Ethereum and additional blockchains.</li>
+        </ol>
+    </section>
+
+    <section id="staking" class="staking">
+        <h2>Staking</h2>
+        <p>Earn rewards by staking your $MEME tokens. The longer you stake, the higher your rewards!</p>
+        <ul>
+            <li>Stake your tokens to earn an annual return of up to 25%.</li>
+            <li>Rewards are distributed automatically to your wallet.</li>
+            <li>Staking durations range from 1 month to 4 years, with higher rewards for longer commitments.</li>
+        </ul>
+        <button onclick="alert('Staking functionality coming soon!')">Start Staking</button>
+    </section>
+
+    <section id="meme-coin" class="meme-coin">
+        <h2>Create and Launch a Meme Coin</h2>
+        <p>Empower your creativity by creating and launching your own meme coin directly on the $MEME platform. This feature requires a fee of 0.25 SOL.</p>
+        <form onsubmit="processMemeCoinCreation(event)">
+            <label for="coin-name">Coin Name:</label>
+            <input type="text" id="coin-name" name="coin-name" placeholder="Enter your coin's name" required><br><br>
+            <label for="coin-symbol">Symbol:</label>
+            <input type="text" id="coin-symbol" name="coin-symbol" placeholder="Enter a symbol (e.g., MEME2)" required><br><br>
+            <label for="total-supply">Total Supply:</label>
+            <input type="number" id="total-supply" name="total-supply" placeholder="Enter total supply" required><br><br>
+            <label for="coin-description">Description:</label>
+            <textarea id="coin-description" name="coin-description" placeholder="Enter a brief description of your token" required></textarea><br><br>
+            <label for="coin-image">Upload Image:</label>
+            <input type="file" id="coin-image" name="coin-image" accept="image/*" required><br><br>
+            <button type="submit">Pay 0.25 SOL & Create Coin</button>
+        </form>
+    </section>
+
+    <script>
+        // Wallet Integration
+        const walletInfo = document.getElementById('wallet-info');
+
+        // Phantom Wallet
+        document.getElementById('connect-phantom-wallet').addEventListener('click', async () => {
+            try {
+                const provider = window.solana;
+                if (!provider?.isPhantom) {
+                    alert('Phantom Wallet is not installed. Please install it to continue.');
+                    return;
+                }
+                const response = await provider.connect();
+                walletInfo.innerHTML = `Connected Wallet: ${response.publicKey.toString()}`;
+            } catch (err) {
+                console.error('Phantom Wallet connection failed:', err);
+            }
+        });
+
+        // Solflare Wallet
+        document.getElementById('connect-solflare-wallet').addEventListener('click', () => {
+            alert('Solflare Wallet integration coming soon!');
+        });
+
+        // Sollet Wallet
+        document.getElementById('connect-sollet-wallet').addEventListener('click', () => {
+            alert('Sollet Wallet integration coming soon!');
+        });
+
+        function processMemeCoinCreation(event) {
+            event.preventDefault();
+
+            const coinName = document.getElementById('coin-name').value;
+            const coinSymbol = document.getElementById('coin-symbol').value;
+            const totalSupply = document.getElementById('total-supply').value;
+            const coinDescription = document.getElementById('coin-description').value;
+            const coinImage = document.getElementById('coin-image').files[0];
+
+            alert(`Processing payment of 0.25 SOL to wallet 2BHx8xLwGprNytm8mQ2fDVoanwFbWmmh4PQR7efk67Ac...\n\nLaunching ${coinName} (${coinSymbol}) with a total supply of ${totalSupply}. Description: ${coinDescription}`);
+
+            // Placeholder logic for payment, coin creation, and image upload
+            console.log('Payment of 0.25 SOL initiated.');
+            console.log(`Launching ${coinName} (${coinSymbol}) with a total supply of ${totalSupply}. Description: ${coinDescription}`);
+            console.log(`Image File:`, coinImage);
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 $MEME. All rights reserved. | <a href="#" style="color: #ff9900;">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
